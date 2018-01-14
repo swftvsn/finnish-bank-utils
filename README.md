@@ -3,14 +3,14 @@
 - A micro Javascript library for validating, creating and formatting Finnish IBAN bank account numbers and reference numbers
 - Lightweight, 5.2kB
 - No dependencies
-- Vanilla JS (ES6) + Babel for browser compatibility
 
 Installation
 ------------
 
 ```sh
-# NPM
+# NPM / yarn
 npm install finnish-bank-utils
+yarn install finnish-bank-utils
 
 # Bower
 bower install finnish-bank-utils
