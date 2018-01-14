@@ -1,7 +1,7 @@
 {
   "name": "finnish-bank-utils",
   "main": "./dist/finnish-bank-utils.min.js",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "authors": [
     "vkomulai <ville.komulainen@iki.fi>",
     "Sakari Tuominen",

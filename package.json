@@ -1,6 +1,6 @@
 {
   "name": "finnish-bank-utils",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "main": "./dist/finnish-bank-utils.js",
   "description": "A micro Javascript library for validating, creating and formatting Finnish IBAN bank account numbers and reference numbers. Can parse payment details from Finnish virtual barcodes.",
   "scripts": {

@@ -1,4 +1,4 @@
-### [1.3.4](https://github.com/vkomulai/finnish-bank-utils/issues/11)
+### [1.3.5](https://github.com/vkomulai/finnish-business-utils/releases/tag/v1.3.5)
 - BUG FIX: [Cent calculation results in corrupted virtual bar codt](https://github.com/vkomulai/finnish-bank-utils/pull/12)
 
 ### [1.3.3](https://github.com/vkomulai/finnish-business-utils/releases/tag/v1.3.3)
