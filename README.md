@@ -124,7 +124,7 @@ Functions
 ##### formatFinnishIBAN(ibanNumber) : string --> string
 - Formats parameter given Finnish IBAN number
 
-##### formatFinnishVirtualBarCode({iban : string, sum : number, reference : string, date : string}) : object --> string
+##### formatFinnishVirtualBarCode({iban : string, sum : string, reference : string, date : string}) : object --> string
 - Formats parameters to Finnish virtual bar code
 
 ##### parseFinnishVirtualBarCode(barCode) : string --> object
