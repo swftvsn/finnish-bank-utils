@@ -7,37 +7,37 @@ import {expect} from 'chai'
 const barCodes = {
   '458101710000001220004829900000000559582243294671120131': {
     iban: 'FI58 1017 1000 0001 22',
-    sum: 482.99,
+    sum: '482.99',
     reference: '55958 22432 94671',
     date: '31.1.2012'
   },
   '402500046400013020006938000000069875672083435364110724': {
     iban: 'FI02 5000 4640 0013 02',
-    sum: 693.8,
+    sum: '693.8',
     reference: '69 87567 20834 35364',
     date: '24.7.2011'
   },
   '415660100015306410074445400000007758474790647489191219': {
     iban: 'FI15 6601 0001 5306 41',
-    sum: 7444.54,
+    sum: '7444.54',
     reference: '7 75847 47906 47489',
     date: '19.12.2019'
   },
   '502500046400013020006938061000000000698756720839110724': {
     iban: 'FI02 5000 4640 0013 02',
-    sum: 693.8,
+    sum: '693.8',
     reference: 'RF61 6987 5672 0839',
     date: '24.7.2011'
   },
   '516800014000502670009358560000078777679656628687000000': {
     iban: 'FI16 8000 1400 0502 67',
-    sum: 935.85,
+    sum: '935.85',
     reference: 'RF60 7877 7679 6566 2868 7',
     date: undefined
   },
   '515660100015306410074445484000007758474790647489191219': {
     iban: 'FI15 6601 0001 5306 41',
-    sum: 7444.54,
+    sum: '7444.54',
     reference: 'RF84 7758 4747 9064 7489',
     date: '19.12.2019'
   }
@@ -364,7 +364,7 @@ describe('finnish-bank-utils', () => {
   describe('#formatFinnishVirtualBarCode', () => {
     const VALID_OBJECT = {
       iban: 'FI15 6601 0001 5306 41',
-      sum: 7444.54,
+      sum: '7444.54',
       reference: 'RF84 7758 4747 9064 7489',
       date: '19.12.2019'
     }
@@ -405,11 +405,11 @@ describe('finnish-bank-utils', () => {
     })
 
     it('Should return false when given negative sum', () => {
-      expect(FinnishBankUtils.formatFinnishVirtualBarCode({...VALID_OBJECT, sum: -1})).to.equal(false)
+      expect(FinnishBankUtils.formatFinnishVirtualBarCode({...VALID_OBJECT, sum: '-1'})).to.equal(false)
     })
 
     it('Should return false when given too large sum', () => {
-      expect(FinnishBankUtils.formatFinnishVirtualBarCode({...VALID_OBJECT, sum: 1000000})).to.equal(false)
+      expect(FinnishBankUtils.formatFinnishVirtualBarCode({...VALID_OBJECT, sum: '1000000'})).to.equal(false)
     })
 
     it('Should return false when given NaN as sum', () => {
@@ -417,11 +417,7 @@ describe('finnish-bank-utils', () => {
     })
 
     it('Should return a bar code when given sum with no decimals', () => {
-      expect(FinnishBankUtils.formatFinnishVirtualBarCode({...VALID_OBJECT, sum: 123})).to.equal('515660100015306410001230084000007758474790647489191219')
-    })
-
-    it('Should return false when given sum with too many decimals', () => {
-      expect(FinnishBankUtils.formatFinnishVirtualBarCode({...VALID_OBJECT, sum: 123.123})).to.equal(false)
+      expect(FinnishBankUtils.formatFinnishVirtualBarCode({...VALID_OBJECT, sum: '123'})).to.equal('515660100015306410001230084000007758474790647489191219')
     })
 
     it('Should return false when given no reference', () => {
@@ -453,6 +449,20 @@ describe('finnish-bank-utils', () => {
         expect(FinnishBankUtils.formatFinnishVirtualBarCode(barCodes[barCode])).to.equal(barCode)
       )
     })
+
+    it('Should return false when given sum with too many decimals', () => {
+      expect(FinnishBankUtils.formatFinnishVirtualBarCode({...VALID_OBJECT, sum: '123.123'})).to.equal(false)
+    })
+
+    it('Should return false when given sum with too many decimals 2', () => {
+      expect(FinnishBankUtils.formatFinnishVirtualBarCode({...VALID_OBJECT, sum: '450.459999999999999927'})).to.equal(false)
+    })
+
+    it('Should return false when given sum with too many decimals 3', () => {
+      expect(FinnishBankUtils.formatFinnishVirtualBarCode({iban: 'FI58 1017 1000 0001 22', sum: '482.9999999998', reference: '55958 22432 94671', date: '31.1.2012'})).to.equal(false)
+    })
+
   })
 
 })
+

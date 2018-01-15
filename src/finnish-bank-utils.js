@@ -6,6 +6,7 @@ const
   FINNISH_IBAN_REGEX = /^FI\d{16}$/,
   FINNISH_VIRTUAL_BAR_CODE_REGEX = /^[45]\d{53}$/,
   FINNISH_DATE_REGEX = /^(\d\d?)\.(\d\d?)\.(\d{4})$/,
+  SUM_REGEX = /^([0-9]+)?(\.)?([0-9]+)?$/,
   IBAN_OFFSET_FROM_ASCIICODE = -55
 
 
@@ -308,7 +309,7 @@ const FinnishBankUtils = {
     version = Number(version)
 
     iban = this.formatFinnishIBAN('FI' + iban)
-    const sum = Number(euros) + Number(cents) / 100
+    const sum = euros.replace(/^0+/, '') + '.' + cents.replace(/0+$/, '')
 
     if (version === 5) {
       reference = 'RF' + reference.substr(0, 2) + removeLeadingZeros(reference.substr(2))
@@ -330,28 +331,48 @@ const FinnishBankUtils = {
    * Supports versions 4 and 5
    * Based on: http://www.finanssiala.fi/maksujenvalitys/dokumentit/Pankkiviivakoodi-opas.pdf
    *
-   * @param object - {Object} Parameters
+   * Parameters are: {
+   *  iban: 'FI58 1017 1000 0001 22', 
+   *  sum: '482.998', //String, max 999999.99, accepted formats: ######.##, #######, .##
+   *  reference: '55958 22432 94671', 
+   *  date: '31.1.2012' //String, accepted format dd.mm.yyyy
+   * }
+   * 
+   * @param object - {Object} Parameters: {  }
    * @returns {string|false}
    */
   formatFinnishVirtualBarCode(object) {
+
     if (
       !object ||
       typeof object != 'object' ||
-      !this.isValidFinnishIBAN(object.iban) ||
-      typeof object.sum != 'number' ||
-      object.sum < 0 ||
-      object.sum > 999999.99 ||
-      object.sum != Number(object.sum.toFixed(2)) ||
+      !object.sum ||
+      typeof object.sum != 'string' ||
+      !SUM_REGEX.test(object.sum) ||
       !this.isValidFinnishRefNumber(object.reference) ||
+      !this.isValidFinnishIBAN(object.iban) ||
       (object.date != undefined && !isValidFinnishDate(object.date))
     ) {
       return false
     }
 
+    let 
+      parsedSum = object.sum.match(SUM_REGEX),
+      euros = parsedSum[1],
+      cents = parsedSum[3] || '00';
+
+    //Check too big sum
+    if (euros.length > 6 || cents.length > 2) {
+      return false
+    }
+
+    //Cents are right padded, as there may be only one significant cent in the string, like '100.3'
+    if (cents.length == 1) {
+      cents += '0'
+    }
+
     let
       iban = removeAllWhiteSpaces(object.iban),
-      euros = Math.floor(object.sum),
-      cents = Math.floor(object.sum * 100 - euros * 100),
       reference = removeAllWhiteSpaces(object.reference),
       day = 0,
       month = 0,
@@ -369,8 +390,8 @@ const FinnishBankUtils = {
 
     return String(version)
       + iban.replace(/^FI/, '')
-      + leftPadString(String(euros), '0', 6)
-      + leftPadString(String(cents), '0', 2)
+      + leftPadString(euros, '0', 6)
+      + cents
       + leftPadString(reference, '0', 23)
       + leftPadString(String(year).substr(-2), '0', 2)
       + leftPadString(String(month), '0', 2)

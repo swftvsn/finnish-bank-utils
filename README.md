@@ -76,19 +76,22 @@ FinnishBankUtils.formatFinnishRefNumber('RF341234561')
 ```js
 # Format Finnish virtual bar code (virtuaaliviidakoodi, pankkiviivakoodi)
 # Supports versions 4 and 5
-FinnishBankUtils.formatFinnishVirtualBarCode({iban: 'FI58 1017 1000 0001 22', sum: 482.99, reference: '55958 22432 94671', date: '31.1.2012'})
+FinnishBankUtils.formatFinnishVirtualBarCode({iban: 'FI58 1017 1000 0001 22', sum: '482.998', reference: '55958 22432 94671', date: '31.1.2012'})
+// false
+FinnishBankUtils.formatFinnishVirtualBarCode({iban: 'FI58 1017 1000 0001 22', sum: '482.99', reference: '55958 22432 94671', date: '31.1.2012'})
 // '458101710000001220004829900000000559582243294671120131'
-FinnishBankUtils.formatFinnishVirtualBarCode({iban: 'FI02 5000 4640 0013 02', sum: 693.8, reference: 'RF61 6987 5672 0839', date: '24.7.2011'})
+FinnishBankUtils.formatFinnishVirtualBarCode({iban: 'FI02 5000 4640 0013 02', sum: '693.8', reference: 'RF61 6987 5672 0839', date: '24.7.2011'})
 // '502500046400013020006938061000000000698756720839110724'
+
 ```
 
 ```js
 # Parse Finnish virtual bar code (virtuaaliviidakoodi, pankkiviivakoodi)
 # Supports versions 4 and 5
 FinnishBankUtils.parseFinnishVirtualBarCode('458101710000001220004829900000000559582243294671120131')
-// {iban: 'FI58 1017 1000 0001 22', sum: 482.99, reference: '55958 22432 94671', date: '31.1.2012'}
+// {iban: 'FI58 1017 1000 0001 22', sum: '482.99', reference: '55958 22432 94671', date: '31.1.2012'}
 FinnishBankUtils.parseFinnishVirtualBarCode('502500046400013020006938061000000000698756720839110724')
-// {iban: 'FI02 5000 4640 0013 02', sum: 693.8, reference: 'RF61 6987 5672 0839', date: '24.7.2011'}
+// {iban: 'FI02 5000 4640 0013 02', sum: '693.8', reference: 'RF61 6987 5672 0839', date: '24.7.2011'}
 ```
 
 ```js
