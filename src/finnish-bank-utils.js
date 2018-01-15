@@ -351,7 +351,7 @@ const FinnishBankUtils = {
     let
       iban = removeAllWhiteSpaces(object.iban),
       euros = Math.floor(object.sum),
-      cents = Math.floor(object.sum * 100 - euros * 100),
+      cents = Math.round(object.sum * 100 - euros * 100),
       reference = removeAllWhiteSpaces(object.reference),
       day = 0,
       month = 0,
