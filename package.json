@@ -1,8 +1,8 @@
 {
-  "name": "finnish-bank-utils",
+  "name": "finnish-bank-utils-with-string-money-type",
   "version": "1.3.5",
   "main": "./dist/finnish-bank-utils.js",
-  "description": "A micro Javascript library for validating, creating and formatting Finnish IBAN bank account numbers and reference numbers. Can parse payment details from Finnish virtual barcodes.",
+  "description": "Fork of https://github.com/vkomulai/finnish-bank-utils.git that uses strings instead of decimals to transfer money amount in and out.",
   "scripts": {
     "dist": "./node_modules/.bin/babel src/finnish-bank-utils.js > dist/finnish-bank-utils.js && ./node_modules/.bin/uglifyjs dist/finnish-bank-utils.js > dist/finnish-bank-utils.min.js",
     "lint": "./node_modules/.bin/eslint src/*.js test/*.js",
@@ -10,32 +10,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vkomulai/finnish-bank-utils.git"
+    "url": "https://github.com/swftvsn/finnish-bank-utils.git"
   },
-  "keywords": [
-    "Finnish",
-    "Suomalainen",
-    "IBAN",
-    "Validation",
-    "Viitenumero",
-    "Tilinumero",
-    "Reference number",
-    "Virtual barcode",
-    "Pankkiviidakoodi",
-    "Virtuaaliviivakoodi"
-  ],
-  "author": "vkomulai <ville.komulainen@iki.fi>",
-  "contributors": [
-    "Sakari Tuominen",
-    "Jonas Berlin",
-    "hruoho",
-    "swftvsn"
-  ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/vkomulai/finnish-bank-utils/issues"
-  },
-  "homepage": "https://github.com/vkomulai/finnish-bank-utils",
   "devDependencies": {
     "babel-cli": "^6.8.0",
     "babel-eslint": "^6.0.4",
@@ -50,5 +27,6 @@
   },
   "pre-commit": [
     "test"
-  ]
+  ],
+  "dependencies": {}
 }
